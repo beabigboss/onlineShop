@@ -1,0 +1,149 @@
+<!DOCTYPE html >
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>支付页面</title>
+    <link rel="stylesheet" type="text/css" href="./lib/layui/css/main.css">
+    <link rel="stylesheet" type="text/css" href="./lib/layui/css/layui.css">
+</head>
+<script type="text/javascript" src="./lib/layui/layui.js"></script>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<!--<body style="background: #f5f5f5">-->
+<body style="background: #fff">
+<div class="site-nav-bg" style="background:#FF0036 ">
+    <div class="site-nav w1200">
+        <p class="sn-back-home">
+            <i style="color:#fff" class="layui-icon layui-icon-home"></i>
+            <a style="color:#fff" href="#">首页</a>
+        </p>
+        <div class="sn-quick-menu">
+            <div class="login"><a style="color: #fff" id="loginA"href="login.html">登录</a></div>
+            <div class="sp-cart"><a style="color: #fff" href="myshopcart.html">购物车</a><span style="color:#fff">2</span></div>
+        </div>
+    </div>
+</div>
+<!--<div class="layui-carousel" id="test1" style="margin:0 auto">-->
+    <!--<div carousel-item>-->
+        <!--<img src="/lunbo1.jpg"/>-->
+        <!--<div>条目2</div>-->
+        <!--<div>条目3</div>-->
+        <!--<div>条目4</div>-->
+        <!--<div>条目5</div>-->
+    <!--</div>-->
+<!--</div>-->
+<img src="/lineimage.jpg">
+<div id="adress" class="layui-card" style="width: 94%;height: 130px;margin-top: 15px;margin: 0 auto">
+    <p style="margin-left: 180px">选择收货地址</p>
+    <!--background: url(/adressbg.png) no-repeat;-->
+    <div style="width:237px;height: 120px;background: url(/adressbg.png) no-repeat 0px 0px;margin-left: 180px">
+        <div style="width: 237px;height: 70px;margin-left: 6px;margin-top:20px;float: left;">
+        <p>湖南湘潭（林勇彬）</p>
+        <p>雨湖雨湖路湖南科技大学南校四区</p>
+        <p>16670802479</p>
+        </div>
+    </div>
+</div>
+<div class="layui-card" style="width: 94%;height:50px;margin: 0 auto;margin-top: 10px">
+    <div class="layui-card-body">
+        <p style="margin-left: 185px;float: left">图片</p>
+        <p style="margin-left: 185px;float: left">商品名</p>
+        <p style="margin-left: 311px;float: left">价格</p>
+        <p style="margin-left: 172px;float: left">数量</p>
+        <p style="margin-left: 240px;float: left">小计</p>
+    </div>
+</div>
+<script id="demo" type="text/html">
+    <div>
+        {{#  layui.each(d.list, function(index, item){ }}
+        <div class="layui-card" style="width: 78%;height:120px;margin: 0 auto;margin-top: 10px">
+            <div class="layui-card-body">
+                <div style="margin-left: 40px;float: left">
+                    <img style="width: 80px;height: 80px" src={{item.goodimage}}/>
+                </div>
+                <div style="width: 200px;height: 40px;float: left;margin-left: 100px">{{item.name}}</div>
+                <div style="margin-left: 205px;width:40px;text-align:center;margin-top: 40px;float: left;color: #FF0036">{{item.price}}</div>
+                <div style="margin-left: 164px;width:40px;float: left;margin-top: 40px;text-align:center;">{{item.num}}</div>
+                <div style="float: right;width:50px;margin-right: 20px;margin-top: 40px;color: #FF0036">￥{{item.price*item.num}}</div>
+                <!--<img src={{item.goodimage}}/>-->
+            </div>
+        </div>
+        {{#  }); }}
+        {{#  if(d.list.length === 0){ }}
+        无数据
+        {{#  } }}
+    </div>
+</script>
+<div id="view" ></div>
+<div class="layui-card" style="width: 78%;height: 140px;margin: 0 auto;">
+    <div class="layui-card-body" style="width: 250px;float: right;height:120px;margin-right: 30px;border: 1px solid #FF0036">
+        <div style="width: 100%"><p id="total" style="margin-right: 10px;float: left;font-size: 18px">￥</p></div>
+        <div style="float: left"><p style="font-size:12px;color: rgb(51, 51, 51); ">寄送至：<p style="font-size: 12px;color: rgb(102, 102, 102);">湖南湘潭雨湖雨湖路湖南科技大学南校四区</p></p>
+            <p style="font-size: 12px">收货人：林勇彬16670802479</p>
+        </div>
+    </div>
+</div>
+<div style="width: 100%;margin-top: 10px"><button type="button" id="buy" onclick="buy()" style="background: #FF0036;margin-top:14px;float: right;margin-right: 195px"  class="layui-btn layui-btn-danger layui-btn-radius">支付</button></div>
+<div style="width:100%"><img style="width:100%;" src="foot.png"/></div>
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script>
+    console.log(localStorage.getItem("name"))
+    nameArray=localStorage.getItem("name");
+    idArray=localStorage.getItem("id");
+    eprice=localStorage.getItem("price");
+    num=localStorage.getItem("num")
+    goodimage=localStorage.getItem("goodimage")
+    goodimage=goodimage.split(",")
+    nameArray=nameArray.split(",")
+    idArray=idArray.split(",")
+    eprice=eprice.split(",")
+    num=num.split(",")
+    totalmoney=localStorage.getItem("totalmoney")
+    var data;
+    var list=new Array()
+    var string;
+    layui.use('laytpl',function () {
+        var laytpl = layui.laytpl;
+        $('#total').text("实付款：￥"+totalmoney)
+        for(var i=0;i<nameArray.length;i++){
+            list[i]={"name":nameArray[i],"id":parseInt(idArray[i]),"num":parseInt(num[i]),"price":parseInt(eprice[i]),"goodimage":goodimage[i]}
+        }
+
+        data={"list":list}
+        string=JSON.stringify(list)
+        console.log(list)
+        var getTpl = demo.innerHTML
+            , view = document.getElementById('view');
+        laytpl(getTpl).render(data, function (html) {
+            view.innerHTML = html;
+        });
+    })
+    var datalist={}
+    datalist.data=list;
+    datalist.totalMoney=parseInt(totalmoney)
+    datalist.userId=parseInt(localStorage.getItem("localUserId"))
+    function buy() {
+        $.ajax({
+            url:"user/buy",
+            type:"post",
+            dataType:"json",
+            traditional: true,
+            contentType:"application/json",
+            data:JSON.stringify(datalist),
+            success:function (res) {
+                alert("res")
+            }
+        })
+    }
+</script>
+</body>
+<script>
+    $(function () {
+        $('#loginA').text(localStorage.getItem("UserName"))
+    })
+</script>
+<!--<script>-->
+    <!--$(function () {-->
+        <!--console.log("我的名字是"+localStorage.getItem("name"));-->
+    <!--})-->
+<!--</script>-->
+</html>

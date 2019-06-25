@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>商品列表</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <link rel="stylesheet" type="text/css" href="./lib/layui/css/main.css">
+    <link rel="stylesheet" type="text/css" href="./lib/layui/css/layui.css">
+    <script type="text/javascript" src="./lib/layui/layui.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+</head>
+    <style>
+        .product{
+            width:253px;
+            height: 333px;
+            float: left;
+        }
+        .productImg-wrap{
+            height: 210px;
+            width: 100%;
+        }
+        .productPrice{
+            width: 100%;
+            float: left;
+            color: #ff0036;
+            font-size: 20px;
+        }
+        .productShop {
+            position: relative;
+            height: 22px;
+            line-height: 20px;
+            margin-bottom: 5px;
+            color: #999;
+            white-space: nowrap;
+            overflow: visible;
+        }
+        .productStatus {
+            position: relative;
+            height: 32px;
+            border: none;
+            border-top-color: currentcolor;
+            border-top-style: none;
+            border-top-width: medium;
+            border-top: 1px solid #eee;
+            margin-bottom: 0;
+            color: #999;
+        }
+    </style>
+    <script>
+        $(function () {
+            $('#loginA').text(localStorage.getItem("UserName"))
+        })
+    </script>
+    <div class="site-nav-bg" style="background:#f2f2f2;height: 30px;">
+        <div class="site-nav w1200">
+            <p class="sn-back-home">
+                <i style="color:#b4b4b4" class="layui-icon layui-icon-home"></i>
+                <a style="color:#b4b4b4" href="shopIndex.html">首页</a>
+            </p>
+            <div class="sn-quick-menu">
+                <div class="login"><a id="loginA"style="color: #b4b4b4" href="userlogin.html">登录</a></div>
+                <div class="sp-cart"><a style="color: #b4b4b4" href="myshopcart.html">购物车</a><span style="color:#fff">2</span></div>
+            </div>
+        </div>
+    </div>
+    <div style="height: 100px;border-bottom: 1px solid #c8baaa;">
+        <img style="width: 100px;height: 65px;margin-top: 10px;margin-left: 0px;float:left;" src="logoimage.png"/>
+        <div style="border: 2.4px solid rgb(255, 0, 54);width: 305px;height: 30px;float: right;margin-right: 140px;margin-top: 20px">
+            <div class="defaultSearch">
+                <button style="width: 80px;height: 30px;background:rgb(255, 0, 54);border: 0px;float: right;" id="J_SearchBtn" type="submit">
+                    搜索
+                    <s></s></button>
+                <input type="text" style="height: 27px;width: 220px;float: left"/>
+            </div>
+        </div>
+    </div>
+    <div style="height:1060px ;width: 100%;">
+    <div class="layui-card" id="view" style="width:1265px;height: 333px;margin: 0 auto ">
+    </div>
+    </div>
+    <div id="demo2" style="margin:0 auto;width:410px">
+    <script id="demo" type="text/html">
+            {{#  layui.each(d.list, function(index, item){ }}
+            <div class="product" data-id="588204428092" data-atp="a!,,123188006,,,,,,,,">
+                <div class="productImg-wrap">
+                    <a href=/details.html?id={{item.id}} class="productImg" target="_blank" data-p="1-10" atpanel="1-10,588204428092,123188006,,spu,1,spu,2200649160970,,," data-spm-anchor-id="a220m.1000858.1000725.1">
+                        <img style="width: 210px;height: 210px;" src={{item.gpicture}} data-spm-anchor-id="a220m.1000858.1000725.i0.40f83a23FIOI70">
+                    </a>
+                </div>
+                <div style="width: 100%;height: 22px">
+                    <p class="productPrice">
+                        <em title="69.00"><b>¥</b>{{item.grprice}}</em>
+                    </p>
+                </div>
+                <div style="width: 210px;height: 18px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
+                    {{item.gname}}
+                </div>
+                <div class="productShop">
+                    <a class="productShop-name" href="//store.taobao.com/search.htm?spm=a220m.1000858.1000725.3.40f83a23FIOI70&amp;user_number_id=2200649160970&amp;rn=6319738a876b28f716c441c3abe74e49" target="_blank" data-spm-anchor-id="a220m.1000858.1000725.3">
+                        万龙洲旗舰店
+                    </a>
+                </div>
+                <p class="productStatus">
+                    <span>月成交 <em>2349笔</em></span>
+                    <span>评价 <a href="//detail.tmall.com/item.htm?spm=a220m.1000858.1000725.4.40f83a23FIOI70&amp;id=588204428092&amp;skuId=4611686606631815996&amp;areaId=430300&amp;user_id=2200649160970&amp;cat_id=55064016&amp;is_b=1&amp;rn=6319738a876b28f716c441c3abe74e49&amp;on_comment=1#J_TabBar" target="_blank" data-p="1-1" atpanel="1-1,588204428092,123188006,,spu,1,spu,2200649160970,,," data-spm-anchor-id="a220m.1000858.1000725.4">1620</a></span>
+                </p>
+            </div>
+            {{#  }); }}
+            {{#  if(d.list.length === 0){ }}
+            无数据
+            {{#  } }}
+    </script>
+    <!--<script type="text/html" id="demo">-->
+        <!--{{# layui.each(d.infoList,function(index,item){ }}-->
+        <!--<div class="product" data-id="588204428092" data-atp="a!,,123188006,,,,,,,,">-->
+            <!--<div class="productImg-wrap">-->
+                <!--<a href="//detail.tmall.com/item.htm?spm=a220m.1000858.1000725.1.40f83a23FIOI70&amp;id=588204428092&amp;skuId=4611686606631815996&amp;areaId=430300&amp;user_id=2200649160970&amp;cat_id=55064016&amp;is_b=1&amp;rn=6319738a876b28f716c441c3abe74e49" class="productImg" target="_blank" data-p="1-10" atpanel="1-10,588204428092,123188006,,spu,1,spu,2200649160970,,," data-spm-anchor-id="a220m.1000858.1000725.1">-->
+                    <!--<img style="width: 210px;height: 210px;" src="//img.alicdn.com/bao/uploaded/i2/2200649160970/O1CN01TtsZVO1J2IisEvK4R_!!2200649160970.jpg" data-spm-anchor-id="a220m.1000858.1000725.i0.40f83a23FIOI70">-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<div style="width: 100%;height: 22px">-->
+                <!--<p class="productPrice">-->
+                    <!--<em title="69.00"><b>¥</b>{{item.price}}</em>-->
+                <!--</p>-->
+            <!--</div>-->
+            <!--<div style="width: 100%;height: 18px">-->
+                <!--{{item.name}}-->
+            <!--</div>-->
+            <!--<div class="productShop">-->
+                <!--<a class="productShop-name" href="//store.taobao.com/search.htm?spm=a220m.1000858.1000725.3.40f83a23FIOI70&amp;user_number_id=2200649160970&amp;rn=6319738a876b28f716c441c3abe74e49" target="_blank" data-spm-anchor-id="a220m.1000858.1000725.3">-->
+                    <!--万龙洲旗舰店-->
+                <!--</a>-->
+            <!--</div>-->
+            <!--<p class="productStatus">-->
+                <!--<span>月成交 <em>2349笔</em></span>-->
+                <!--<span>评价 <a href="//detail.tmall.com/item.htm?spm=a220m.1000858.1000725.4.40f83a23FIOI70&amp;id=588204428092&amp;skuId=4611686606631815996&amp;areaId=430300&amp;user_id=2200649160970&amp;cat_id=55064016&amp;is_b=1&amp;rn=6319738a876b28f716c441c3abe74e49&amp;on_comment=1#J_TabBar" target="_blank" data-p="1-1" atpanel="1-1,588204428092,123188006,,spu,1,spu,2200649160970,,," data-spm-anchor-id="a220m.1000858.1000725.4">1620</a></span>-->
+            <!--</p>-->
+        <!--</div>-->
+        <!--{{# });}}-->
+    <!--</script>-->
+</div>
+</body>
+    <script>
+        layui.use(['laypage', 'layer','laytpl'], function(){
+            var laypage = layui.laypage
+                ,layer = layui.layer;
+            var laytpl = layui.laytpl;
+            var currpage=1;
+            var getTpl = demo.innerHTML
+            var adress=window.location.search.split("?");
+            var ids=adress[1].split("=");
+            var countNum=1;
+            $.ajax({
+                url:"/good/totalNum/"+ids[1],
+                type:"get",
+                dataType:"json",
+                async:false,
+                success:function (res) {
+                    countNum=res;
+                }
+            })
+            laypage.render({
+                elem: 'demo2'
+                ,count:countNum
+                ,limit:15
+                ,theme: '#1E9FFF'
+                ,curr:currpage
+                ,jump:function (obj,first) {
+                    console.log(obj)
+                    currpage=obj.curr
+                    // if(!first){
+                        var List=new Array();
+                        $.ajax({
+                            url:"good/"+ids[1]+"/font/all",
+                            type:"get",
+                            dataType:"json",
+                            data:{"curr":currpage,"limit":15},
+                            async:false,//禁止异步加载，防止数据没获取到就进行渲染，导致没数据显示
+                            success:function (res) {
+                                // console.log(res.data[0])
+                                countNum=res.count
+                                for (var i=0;i<res.data.length;i++) {
+                                    List[i]=res.data[i];
+                                }
+                                    var data={"list":List};
+                                    console.log("数据是"+data.list)
+                                    laytpl(getTpl).render(data, function(html){
+                                        view.innerHTML = html;
+                                });
+                            }
+                        })
+                    // }
+                }
+            });
+        })
+
+    </script>
+</html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>购物车</title>
+  <link rel="stylesheet" type="text/css" href="./lib/layui/css/main.css">
+  <link rel="stylesheet" type="text/css" href="./lib/layui/css/layui.css">
+  <script type="text/javascript" src="./lib/layui/layui.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+</head>
+<body>
+  <div class="site-nav-bg" style="background:#FF0036 ">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <i class="layui-icon layui-icon-home"></i>
+        <a  style="color:#fff" href="shopIndex.html">首页</a>
+      </p>
+      <div class="sn-quick-menu">
+        <div class="login"><a style="color:#fff" id="loginA" href="login.html">登录</a></div>
+        <div class="sp-cart"><a style="color:#fff" href="myshopcart.html">购物车</a><span>2</span></div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div style="height: 100px;border-bottom: 1px solid #c8baaa;">
+    <img style="width: 100px;height: 65px;margin-top: 10px;margin-left: 0px;float:left;" src="logoimage.png"/>
+    <div style="border: 2.4px solid rgb(255, 0, 54);width: 305px;height: 30px;float: right;margin-right: 140px;margin-top: 20px">
+      <div class="defaultSearch">
+        <button style="width: 80px;height: 30px;background:rgb(255, 0, 54);border: 0px;float: right;" id="J_SearchBtn" type="submit">
+          搜索
+          <s></s></button>
+        <input type="text" style="height: 27px;width: 220px;float: left"/>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="content content-nav-base shopcart-content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <a href="commodity.html" class="active">所有商品</a>
+            <a href="buytoday.html">今日团购</a>
+            <a href="information.html">母婴资讯</a>
+            <a href="about.html">关于我们</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="banner-bg w1200" style="background-image:url(/lib/layui/images/img/buy_ban.jpg)">
+      <h3>冰凉酷爽</h3>
+      <p>美好生活，在这开始啦</p>
+    </div>
+    <div class="cart w1200">
+      <div class="cart-table-th">
+        <div class="th th-chk">
+          <div class="select-all">
+            <div class="cart-checkbox">
+              <input class="check-all check" id="allCheckked" type="checkbox" value="true">
+            </div>
+          <label>&nbsp;&nbsp;全选</label>
+          </div>
+        </div>
+        <div class="th th-item">
+          <div class="th-inner">
+            商品
+          </div>
+        </div>
+        <div class="th th-price">
+          <div class="th-inner">
+            单价
+          </div>
+        </div>
+        <div class="th th-amount">
+          <div class="th-inner">
+            数量
+          </div>
+        </div>
+        <div class="th th-sum">
+          <div class="th-inner">
+            小计
+          </div>
+        </div>
+        <div class="th th-op">
+          <div class="th-inner">
+            操作
+          </div>
+        </div>  
+      </div>
+      <div class="OrderList">
+        <div class="order-content" id="list-cont">
+        </div>
+      </div>
+
+
+      <!-- 模版导入数据 -->
+       <script type="text/html" id="demo">
+        {{# layui.each(d.infoList,function(index,item){ }}
+          <ul class="item-content layui-clear">
+            <li class="th th-chk">
+              <div class="select-all">
+                <div class="cart-checkbox">
+                  <input class="CheckBoxShop check"  type="checkbox" num="all" name="select-all" value="true">
+                </div>
+              </div>
+            </li>
+            <li class="th th-item">
+              <div class="item-cont">
+                <a href="javascript:;"><img src={{item.gpicture}} alt=""></a>
+                <div class="text">
+                  <div class="title">{{item.gname}}</div>
+                  <p class="Idd" hidden="hidden">{{item.id}}</p>
+                </div>
+              </div>
+            </li>
+            <li class="th th-price">
+              <span class="th-su">{{item.grprice}}</span>
+            </li>
+            <li class="th th-amount">
+              <div class="box-btn layui-clear">
+                <div class="less layui-btn">-</div>
+                <input class="Quantity-input" type="" name="" value={{item.shoppingnum}} disabled="disabled">
+                <div class="add layui-btn">+</div>
+              </div>
+            </li>
+            <li class="th th-sum">
+              <span class="sum">{{item.grprice*item.shoppingnum}}</span>
+            </li>
+            <li class="th th-op">
+              <span class="dele-btn">删除</span>
+            </li>
+          </ul>
+        {{# });}}
+      </script>
+
+
+      <div class="FloatBarHolder layui-clear">
+        <div class="th th-chk">
+          <div class="select-all">
+            <div class="cart-checkbox">
+              <input class="check-all check" id="" name="select-all" type="checkbox"  value="true">
+            </div>
+            <label>&nbsp;&nbsp;已选<span class="Selected-pieces">0</span>件</label>
+          </div>
+        </div>
+        <div class="th batch-deletion">
+          <span class="batch-dele-btn">批量删除</span>
+        </div>
+        <div class="th Settlement">
+          <button class="layui-btn" id="balancebu" style="background: #FF0036" onclick="">结算</button>
+        </div>
+        <div class="th total">
+          <p>应付：￥<span class="pieces-total" id="totalMoney">0</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script type="text/javascript">
+  layui.config({
+    base: './js/' //你存放新模块的目录，注意，不是layui的模块目录
+  }).use(['mm','jquery','element','car'],function(){
+    var mm = layui.mm,$ = layui.$,element = layui.element,car = layui.car;
+
+    // 模版导入数据
+    var html = demo.innerHTML,
+            listCont = document.getElementById('list-cont');
+    mm.request({
+      url: '/user/cart/'+localStorage.getItem("localUserId"),
+      success : function(res){
+        listCont.innerHTML = mm.renderHtml(html,res)
+        element.render();
+        car.init()
+      },
+      error: function(res){
+        console.log(res);
+      }
+    })
+
+    car.init()
+
+
+  });
+</script>
+</body>
+  <!--<script>-->
+    <!--function banlance() {-->
+      <!--alert("结算")-->
+    <!--}-->
+  <!--</script>-->
+  <script>
+    layui.use(['form'],function () {
+      var form=layui.form;
+      form.on('checkbox(mycheck)', function(data){
+        console.log(data.elem); //得到checkbox原始DOM对象
+        console.log(data.elem.checked); //是否被选中，true或者false
+        console.log(data.value); //复选框value值，也可以通过data.elem.value得到
+        console.log(data.othis); //得到美化后的DOM对象
+      });
+    })
+  </script>
+<script>
+  $(function () {
+    $('#loginA').text(localStorage.getItem("UserName"))
+  })
+</script>
+</html>

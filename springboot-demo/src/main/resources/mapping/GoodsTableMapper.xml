@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lin.springbootdemo.mapper.GoodsTableMapper" >
+  <resultMap id="BaseResultMap" type="com.lin.springbootdemo.model.GoodsTable" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="gname" property="gname" jdbcType="VARCHAR" />
+    <result column="goprice" property="goprice" jdbcType="DOUBLE" />
+    <result column="grprice" property="grprice" jdbcType="DOUBLE" />
+    <result column="gstore" property="gstore" jdbcType="INTEGER" />
+    <result column="gpicture" property="gpicture" jdbcType="VARCHAR" />
+    <result column="goodstype_id" property="goodstypeId" jdbcType="INTEGER" />
+    <result column="comment_id" property="commentId" jdbcType="INTEGER"/>
+    <result column="detailImage" property="detailImage" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="selectAllGood" resultType="com.lin.springbootdemo.model.metaModel.Good">
+    select goodstable.*,goodstype.typename from goodstable,goodstype where goodstable.goodstype_id=goodstype.id
+  </select>
+  <select id="selectGoodWithSameType" parameterType="int" resultType="com.lin.springbootdemo.model.GoodsTable">
+    select * from goodstable where goodstype_id=#{typeId}
+  </select>
+  <insert id="addGood" parameterType="com.lin.springbootdemo.model.GoodsTable">
+    insert into goodstable VALUES (#{id},#{gname},#{goprice},#{grprice},#{gstore},#{gpicture},#{goodstypeId})
+  </insert>
+  <select id="getGoodDetail" resultType="com.lin.springbootdemo.model.GoodsTable" parameterType="int">
+  select * from goodstable where id=#{id}
+  </select>
+  <select id="getTotalNum" resultType="int">
+    select count(id) from goodstable
+  </select>
+  <select id="getTotalNumWithSameType" parameterType="int" resultType="int">
+    select count(id) from goodstable where goodstype_id=#{typeId}
+  </select>
+</mapper>

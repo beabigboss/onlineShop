@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lin.springbootdemo.mapper.OrderTableMapper" >
+  <resultMap id="BaseResultMap" type="com.lin.springbootdemo.model.OrderTable" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="busertable_id" property="busertableId" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="DOUBLE" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="orderdate" property="orderdate" jdbcType="TIMESTAMP" />
+    <result column="orderadress" property="orderadress" jdbcType="VARCHAR"/>
+  </resultMap>
+  <select id="selectOrder" resultType="com.lin.springbootdemo.model.Order">
+    Select u.id,u.name,o.id as orderId,g.gname,g.grprice,g.gpicture,o.orderadress ,o.status,od.shoppingnum as num from user as u,goodstable as g,ordertable as o,orderdetail as od where u.id=o.busertable_id and o.id=od.ordertable_id and od.goodstable_id=g.id
+  </select>
+  <!--用户购买东西-->
+  <insert id="addOrder" parameterType="com.lin.springbootdemo.model.OrderTable">
+    Insert into ordertable values(null,#{busertableId},#{amount},#{status},#{orderdate},#{orderadress})
+  </insert>
+  <select id="maxOrderId" resultType="int">
+    select max(id) from ordertable
+  </select>
+  <select id="getNearOrderId" parameterType="int" resultType="int">
+    select * from ordertable where busertable_id=#{useId} ORDER BY id DESC LIMIT 1
+  </select>
+
+</mapper>

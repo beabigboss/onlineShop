@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lin.springbootdemo.mapper.CartTableMapper" >
+  <resultMap id="BaseResultMap" type="com.lin.springbootdemo.model.CartTable" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="busertable_id" property="busertableId" jdbcType="INTEGER" />
+    <result column="goodstable_id" property="goodstableId" jdbcType="INTEGER" />
+    <result column="shoppingnum" property="shoppingnum" jdbcType="INTEGER" />
+    <result column="num" property="num" jdbcType="INTEGER"/>
+  </resultMap>
+  <select id="selectCartable" parameterType="int" resultType="com.lin.springbootdemo.model.Cart">
+    select u.name,c.goodstable_id as id,c.shoppingnum,g.gname,g.grprice,g.gpicture from user as u,carttable as c,goodstable as g where u.id=c.busertable_id and c.goodstable_id=g.id and u.id=#{id}
+  </select>
+  <delete id="deleteGoodFromCart" parameterType="Map">
+   delete from carttable where carttable.busertable_id=#{userId} and carttable.goodstable_id=#{goodId}
+  </delete>
+  <delete id="delete" parameterType="int">
+    delete from carttable where id=#{id}
+  </delete>
+  <insert id="addToCart" parameterType="int">
+    insert into carttable values(null,#{userId},#{goodId},#{shopnum})
+  </insert>
+  <!--增加购物车里面某个商品的数量-->
+  <update id="upcart" parameterType="int">
+    update carttable set shoppingnum=shoppingnum+1 where busertable_id=#{userId} and goodstable_id=#{goodId}
+  </update>
+  <update id="downcart" parameterType="int">
+    update carttable set shoppingnum=shoppingnum-1 where busertable_id=#{userId} and goodstable_id=#{goodId}
+  </update>
+</mapper>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="./lib/layui/css/layui.css">
+</head>
+<script type="text/javascript" src="./lib/layui/layui.js"></script>
+<body>
+<div>sssss</div>
+<div id="demo2">
+</div>
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.0.js"></script>
+<script>
+    layui.use(['laypage','layer'],function () {
+        var laypage = layui.laypage
+            ,layer = layui.layer;
+        var currpage=1;
+        laypage.render({
+            elem: 'demo2'
+            ,count: 100
+            ,limit:15
+            ,theme: '#1E9FFF'
+            ,curr:currpage
+            ,jump:function (obj,first) {
+                console.log(obj)
+                currpage=obj.curr
+                if(!first){
+                    $.ajax({
+                        url:"/test/layui",
+                        type:"get",
+                        dataType:"json",
+                        data:{"curr":currpage,"limit":15},
+                        success:function (res) {
+                            console.log(res)
+                        }
+                    })
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

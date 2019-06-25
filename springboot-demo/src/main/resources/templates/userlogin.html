@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <link rel="stylesheet" type="text/css" href="./lib/layui/css/main.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./lib/layui/layui.js" charset="utf-8"></script><meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+</head>
+<body>
+<div class="site-nav-bg" style="background:#fff ;height: 45px">
+    <div class="site-nav w1200">
+        <p class="sn-back-home">
+            <i class="layui-icon layui-icon-home"></i>
+            <a  style="color:rgb(108, 108, 108);" href="#">首页</a>
+        </p>
+        <div class="sn-quick-menu">
+            <div ><a style="color:red" th:text="${theUserName}" href="login.html">登录</a></div>
+            <div class="sp-cart"><a style="color:rgb(108, 108, 108);" href="myshopcart.html">购物车</a><span>2</span></div>
+        </div>
+    </div>
+</div>
+<div style="height: 30px"></div>
+<div style="width:100%;height: 550px;background-image: url(loginbg.png)">
+    <div class="login layui-anim layui-anim-up" style="width: 316px;height: 200px;float: right;margin-right: 140px;margin-top:40px">
+        <div class="message" style="background:#0086ff ">森林商城登录</div>
+        <div id="darkbannerwrap"></div>
+        <form method="post" class="layui-form" onsubmit="return false" id="loginForm" action="#">
+            <input name="username" id="name" placeholder="用户名"  type="text" lay-verify="required" class="layui-input" >
+            <hr class="hr15">
+            <input name="password" id="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
+            <hr class="hr15">
+            <button onclick="Login()" style="width:100%;background:#0086ff">登录</button>
+            <!--<input value="登录" onclick="Login()" lay-submit lay-filter="login" style="width:100%;background:#0086ff" type="submit">-->
+            <hr class="hr20" >
+        </form>
+        <p style="color:red ">[[${session.msg}]]</p>
+    </div>
+</div>
+<script>
+    function Login() {
+        var name=$('#name').val()
+        var password=$('#password').val()
+        $.ajax({
+            url:"user/login",
+            dataType:"json",
+            type:"post",
+            data:$('#loginForm').serialize(),
+            success:function (res) {
+                if (res==1) {
+                    alert("验证成功");
+                    localStorage.setItem("UserName",name);
+                    window.location.href="/shopIndex.html";
+                }
+                else {
+                    window.location.href="/userlogin.html";
+                }
+            }
+        })
+
+
+    }
+    function getId(){
+        $.ajax({
+            url:"user/getByName/"+name,
+            dataType:"json",
+            type:"get",
+            success:function (res) {
+                alert(res)
+                localStorage.setItem("localUserId",res)
+                alert("成功获取并保存用户ID到本地")
+
+            }
+        })
+    }
+</script>
+<!--<img src="/loginbg.png"/>-->
+</body>
+</html>
