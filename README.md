@@ -1,3 +1,11 @@
+## 使用前请联系本人
+微信：16670802479
+qq:1214359270
+## 框架使用
+#### 后端框架springboot+mybatis
+#### 前端框架layui
+#### 数据库mysql
+#### jdk 1.8
 # onlineShop
 springboot+mybatis网上商城
 商品图片指定本地一个文件夹为静态文件夹就好，用来存放商品的图片，详情图片，以及页面logo等等
